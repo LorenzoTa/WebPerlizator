@@ -4,14 +4,21 @@ use URI::Escape;
 use Getopt::Long;
 use JSON::MaybeXS qw(encode_json);
 
-my (@infiles, @outfiles, $script, $lineofcode, $browse, $help);
+my $VERSION = 4;
+
+my (@infiles, @outfiles, $script, $lineofcode, $browse, $help, $debug, $autorun, $mergestderr);
+$autorun = 1;
+$mergestderr = 1; 
 unless ( GetOptions (
-                        "script=s" => \$script,
+                        "script=s" 				 => \$script,
                         "line|oneliner|code|c=s" => \$lineofcode,
-                        "inputfiles=s"   => \@infiles,
-                        "outputfiles|o=s"  => \@outfiles,
-                        "browse"         => \$browse,
-                        "help"        => \$help
+                        "inputfiles=s"   		 => \@infiles,
+                        "outputfiles|o=s"  		 => \@outfiles,
+						"mergestderr=i"			 => \$mergestderr,
+						"autorun|run=i"    		 => \$autorun,
+						"debug|json"			 => \$debug,
+                        "browse"         		 => \$browse,
+                        "help"        			 => \$help
                     )) 
                         {
                             print "GetOpt::Long returned errors (see above), available options:\n\n".help();
@@ -20,6 +27,8 @@ unless ( GetOptions (
 if ($help){ print help(); exit 0;}
 
 my $json = {};
+$$json{autorun} = $autorun ? 'true' : 'false';
+$$json{mergeStdOutErr} = 'true' if $mergestderr;
 if ($lineofcode){
     $$json{cmdline} = "perl $lineofcode";
 }
@@ -50,6 +59,11 @@ if ( $outfiles[0]){
     $$json{outputs} = \@outfiles ;
 }
 
+if ( $debug ){
+	print "Debug of resulting JSON structure:\n";
+	my $dumper =  JSON::MaybeXS->new(utf8 => 1, pretty => 1);
+	print $dumper->encode( $json );
+}
 my $url = 'https://webperl.zero-g.net/democode/perleditor.html#'.(uri_escape( encode_json( $json ) ));
 if ($browse){
     if ($^O =~/mswin32/i) {exec "start $url"}
@@ -86,6 +100,8 @@ $0 USAGE:
 	--inputfiles -i is for input files; more than one can be feed
 	
 	--outputfiles -o is for output file and more than one can be passed in
+	
+	--debug|json will dump the resulting JSON structure
 	
 	--browse -b open the default browser, hopefully, pointing to the WebPerl right page
 	
