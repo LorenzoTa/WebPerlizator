@@ -5,7 +5,7 @@ and the demo used by the present code at https://webperl.zero-g.net/democode/per
 
 webperlizator.pl USAGE:
 
-  --script file|--code line 
+    --script file|--code line 
 	[--inputfile file [--inputfile file] --outputfile file [--outputfile file] --browse]
 	
     webperlizator.pl -script script.pl 
