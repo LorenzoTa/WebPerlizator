@@ -12,16 +12,16 @@ $url = 'https://webperl.zero-g.net/democode/perleditor.html#';
 $autorun = 1;
 $mergestderr = 1; 
 unless ( GetOptions (
-                        "script=s" 				 => \$script,
-                        "line|oneliner|code|c=s" => \$lineofcode,
-                        "inputfiles=s"   		 => \@infiles,
-                        "outputfiles|o=s"  		 => \@outfiles,
-			"mergestderr=i"			 => \$mergestderr,
-			"autorun|run=i"    		 => \$autorun,
-			"debug|json"			 => \$debug,
-                        "browse"         		 => \$browse,
-			"url=s"				 => \$url,
-                        "help"        			 => \$help
+                        "script=s" 		=> \$script,
+                        "line|oneliner|code|c=s"=> \$lineofcode,
+                        "inputfiles=s"   	=> \@infiles,
+                        "outputfiles|o=s"  	=> \@outfiles,
+			"mergestderr=i"		=> \$mergestderr,
+			"autorun|run=i"    	=> \$autorun,
+			"debug|json"	        => \$debug,
+                        "browse"         	=> \$browse,
+			"url=s"			=> \$url,
+                        "help"        		=> \$help
                     )) 
                         {
                             print "GetOpt::Long returned errors (see above), available options:\n\n".help();
