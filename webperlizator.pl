@@ -16,11 +16,11 @@ unless ( GetOptions (
                         "line|oneliner|code|c=s" => \$lineofcode,
                         "inputfiles=s"   		 => \@infiles,
                         "outputfiles|o=s"  		 => \@outfiles,
-						"mergestderr=i"			 => \$mergestderr,
-						"autorun|run=i"    		 => \$autorun,
-						"debug|json"			 => \$debug,
+			"mergestderr=i"			 => \$mergestderr,
+			"autorun|run=i"    		 => \$autorun,
+			"debug|json"			 => \$debug,
                         "browse"         		 => \$browse,
-						"url=s"					 => \$url,
+			"url=s"				 => \$url,
                         "help"        			 => \$help
                     )) 
                         {
